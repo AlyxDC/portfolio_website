@@ -190,6 +190,8 @@ text-align: center;
   /*Hero Section CSS */
   .main {
     background-color: #131313;
+    max-width: 100%;
+    width: 100%;
    
   }
   
