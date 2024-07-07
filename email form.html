@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Form</title>
+    <style>
+        /* Resetting default margin and padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .navbar {
+            background: #ff4141;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            font-size: 1.2rem;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            width: 100%; /* Extend navbar across the entire width */
+            padding: 0 20px; 
+        }
+
+        .navbar__container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 50px;
+        }
+
+        #navbar__logo {
+            background-color: #ffffaa;
+            background-size: 100%;
+            -webkit-background-clip: text;
+            -moz-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            -moz-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 2rem;
+        }
+
+        .navbar__menu {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            text-align: center;
+            margin: 0;
+        }
+
+        .navbar__item {
+            height: 80px;
+        }
+
+        .navbar__links {
+            color: #ffffaa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            padding: 0 1rem;
+            height: 100%;
+        }
+
+        .navbar__btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 1rem;
+        }
+
+        .button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            padding: 10px 20px;
+            height: 100%;
+            border: none;
+            outline: none;
+            border-radius: 4px;
+            background: #ff69b4;
+            color: #a7006a;
+        }
+
+        .button:hover {
+            background: #7b00d9;
+            color: #ffa8df;
+            transition: all 0.3s ease;
+        }
+
+        .navbar__links:hover {
+            color: #ffb584;
+            transition: all 0.3s ease;
+        }
+
+        @media screen and (max-width: 960px) {
+            .navbar__container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                height: 80px;
+                width: 100%;
+                max-width: 1300px;
+                padding: 0;
+            }
+
+            .navbar__menu {
+                display: grid;
+                grid-template-columns: auto;
+                margin: 0;
+                width: 100%;
+                position: absolute;
+                top: -1000px;
+                opacity: 1;
+                transition: all 0.5s ease;
+                height: 50vh;
+                z-index: -1;
+            }
+
+            .navbar__menu.active {
+                background: #131313;
+                top: 100%;
+                opacity: 1;
+                transition: all 0.5s ease;
+                z-index: 99;
+                height: 50vh;
+                font-size: 1.6rem;
+            }
+
+            #navbar__logo {
+                padding-left: 25px;
+            }
+
+            .navbar__toggle .bar {
+                width: 25px;
+                height: 3px;
+                margin: 5px auto;
+                transition: all 0.3s ease-in-out;
+                background: #fff;
+            }
+
+            .navbar__item {
+                width: 100%;
+            }
+
+            .navbar__links {
+                text-align: center;
+                padding: 2rem;
+                width: 100%;
+                display: table;
+            }
+
+            .navbar__btn {
+                padding-bottom: 2rem;
+            }
+
+            .button {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 80%;
+                height: 80px;
+                margin: 0;
+            }
+
+            #mobile-menu {
+                position: absolute;
+                top: 20%;
+                right: 5%;
+                transform: translate(5%, 20%);
+            }
+
+            .navbar__toggle .bar {
+                display: block;
+                cursor: pointer;
+            }
+
+            #mobile-menu.is-active .bar:nth-child(2) {
+                opacity: 0;
+            }
+
+            #mobile-menu.is-active .bar:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+
+            #mobile-menu.is-active .bar:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column; /* Ensure content stacks vertically */
+            align-items: center; /* Center content horizontally */
+            background-color: #000000;
+            margin: 0;
+        }
+
+        .form-container {
+            width: 80%; /* Adjust width of the form container */
+            max-width: 600px; /* Optional: Set maximum width */
+            padding: 20px;
+            background-color: #252525;
+            color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-top: 20px; /* Add margin to separate from navbar */
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label, input, textarea, button {
+            margin-bottom: 10px;
+            width: 100%; /* Full width for all form elements */
+            box-sizing: border-box; /* Include padding and border in element's total width and height */
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #f8a85b;
+        }
+
+        @media screen and (max-width: 600px) {
+            .form-container {
+                width: 90%; /* Adjust width for smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <a href="/" id="navbar__logo">Alyx's Portfolio</a>
+            <div class="navbar__toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="navbar__menu">
+                <li class="navbar__item">
+                    <a href="https://alyxdc.github.io/portfolio_website/" class="navbar__links">Home</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="/" class="navbar__links">Projects</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="https://www.artstation.com/starstuff" target="_blank" class="navbar__links">Art</a>
+                </li>
+                <li class="navbar__btn">
+                    <a href="/" class="button">Contact Me</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="form-container">
+        <h2>Contact Me</h2>
+        <form id="contactForm">
+            <label for="name">Name:</label><br>
+            <input type="text" id="name" name="name" required autocomplete = "off"><br><br>
+            
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" required><br><br>
+            
+            <label for="message">Message:</label><br>
+            <textarea id="message" name="message" rows="4" required></textarea><br><br>
+            
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <!-- JavaScript to handle form submission simulation -->
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Simulate successful submission
+            alert('Your Email is on its way! :D'); // Show success message
+
+            // Optional: Clear form fields after submission
+            document.getElementById('name').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('message').value = '';
+        });
+        
+    </script>
+</body>
+</html>
